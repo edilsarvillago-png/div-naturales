@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Estudio Interactiva - División de Números Naturales | Colegio Montano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax Configuration and Script for LaTeX rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montano: {
+                            blue: '#1269A8',
+                            yellow: '#F7D615',
+                            sage: '#54887D',
+                            lightblue: '#88B5C7',
+                            olive: '#A6B046',
+                            softwhite: '#F2F5E9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d283c;
+            color: #333333;
+        }
+        .whiteboard-frame {
+            border: 12px solid #F7D615;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.1);
+        }
+        .tab-btn.active {
+            background-color: #1269A8;
+            color: #ffffff;
+            border-bottom: 4px solid #F7D615;
+            font-weight: bold;
+        }
+        .tab-btn {
+            background-color: #e2e8f0;
+            color: #54887D;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover:not(.active) {
+            background-color: #cbd5e1;
+            color: #1269A8;
+        }
+        .solution-container {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .solution-container.open {
+            max-height: 1000px;
+            opacity: 1;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        /* Custom Scrollbar for inner content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F2F5E9;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #54887D;
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 min-h-screen flex items-center justify-center">
+
+    <div id="whiteboard" class="whiteboard-frame w-full max-w-6xl bg-montano-softwhite overflow-hidden flex flex-col my-auto relative">
+        
+        <header class="bg-montano-blue text-white p-4 flex flex-wrap items-center justify-between gap-4 border-b-4 border-montano-yellow shadow-md">
+            <div class="flex items-center gap-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                     alt="Colegio Montano Logo" 
+                     class="h-12 w-auto bg-white p-1 rounded-md shadow"
+                     onerror="this.src='https://placehold.co/120x50/1269A8/FFFFFF?text=Colegio+Montano'">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-wide">Pizarra Digital Interactiva</h1>
+                    <p class="text-xs md:text-sm text-montano-lightblue font-medium">Matemáticas | 6.º Grado de Primaria</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="bg-montano-sage text-white text-xs px-3 py-1 rounded-full font-semibold hidden md:inline-block">
+                    Unidad 1: Operaciones Básicas
+                </span>
+                <button id="fullscreen-btn" onclick="toggleFullscreen()" class="bg-montano-yellow hover:bg-yellow-400 text-montano-blue font-bold px-3 py-2 rounded-lg text-sm flex items-center gap-2 shadow transition-transform transform active:scale-95">
+                    <i class="fa-solid font-bold fa-expand"></i>
+                    <span class="hidden sm:inline">Pantalla Completa</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="bg-montano-sage text-white px-6 py-3 border-b border-gray-300 flex justify-between items-center flex-wrap gap-2">
+            <h2 class="text-lg md:text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-montano-yellow"></i> Tema: División de Números Naturales y sus Propiedades
+            </h2>
+            <div class="text-xs bg-montano-softwhite text-montano-sage font-bold px-2 py-1 rounded border border-montano-lightblue">
+                Colegio Montano
+            </div>
+        </div>
+
+        <nav class="flex flex-wrap bg-gray-200 border-b border-gray-300 px-2 pt-2 gap-1 text-xs md:text-sm font-semibold select-none">
+            <button onclick="switchTab('teoria')" id="tab-teoria" class="tab-btn active px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-book-open"></i> 1. Teoría
+            </button>
+            <button onclick="switchTab('ejemplos')" id="tab-ejemplos" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i> 2. Ejemplos Resueltos
+            </button>
+            <button onclick="switchTab('ejercicios')" id="tab-ejercicios" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-pencil"></i> 3. Ejercicios Prácticos
+            </button>
+            <button onclick="switchTab('reflexion')" id="tab-reflexion" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-brain"></i> 4. Reflexión Crítica
+            </button>
+            <button onclick="switchTab('evaluacion')" id="tab-evaluacion" class="tab-btn px-4 py-2.5 rounded-t-lg flex items-center gap-2">
+                <i class="fa-solid fa-square-check"></i> 5. Evaluación Formativa
+            </button>
+        </nav>
+
+        <main class="p-4 md:p-6 overflow-y-auto custom-scrollbar flex-1 min-h-[500px] max-h-[calc(85vh-120px)] bg-montano-softwhite">
+
+            <!-- ================= TAB 1: TEORÍA ================= -->
+            <section id="sec-teoria" class="tab-content space-y-6">
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-blue shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> ¿Qué es la División de Números Naturales?
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        La <strong>división</strong> es una operación matemática que consiste en repartir una cantidad en partes iguales, o averiguar cuántas veces una cantidad (divisor) está contenida en otra (dividendo). Es la operación inversa a la multiplicación.
+                    </p>
+                </div>
+
+                <!-- Elementos de la división -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm">
+                        <h4 class="font-bold text-montano-blue mb-3 text-lg border-b pb-2">Términos de la División</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li><strong class="text-montano-sage">Dividendo ($D$):</strong> Es la cantidad total que se quiere repartir.</li>
+                            <li><strong class="text-montano-sage">Divisor ($d$):</strong> Es el número de partes iguales en las que se divide el dividendo.</li>
+                            <li><strong class="text-montano-sage">Cociente ($c$):</strong> Es el resultado de la división (cuánto le toca a cada parte).</li>
+                            <li><strong class="text-montano-sage">Resto o Residuo ($r$):</strong> Es la cantidad que sobra cuando la división no es exacta.</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-center border border-montano-lightblue font-mono text-base text-montano-blue font-bold">
+                            Fórmula fundamental: D = (d × c) + r
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm">
+                        <h4 class="font-bold text-montano-blue mb-3 text-lg border-b pb-2">Tipos de División</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                                <span class="font-bold text-emerald-800">1. División Exacta:</span>
+                                <p class="text-gray-600">Ocurre cuando el residuo es igual a cero ($r = 0$). Es decir, el dividendo contiene exactamente al divisor un número entero de veces.</p>
+                            </div>
+                            <div class="p-3 bg-amber-50 rounded-lg border border-amber-200">
+                                <span class="font-bold text-amber-800">2. División Inexacta (Inexacta o Entera):</span>
+                                <p class="text-gray-600">Ocurre cuando el residuo es diferente de cero ($r > 0$). El residuo <strong>siempre debe ser menor</strong> que el divisor ($r < d$).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Propiedades de la división -->
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-yellow shadow-sm">
+                    <h4 class="text-xl font-bold text-montano-blue mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-montano-yellow"></i> Propiedades Fundamentales de la División en $\mathbb{N}$
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-lg bg-red-50 border border-red-200">
+                            <h5 class="font-bold text-red-700 mb-1">❌ No es Conmutativa</h5>
+                            <p class="text-xs text-gray-600">El orden de los términos SÍ altera el resultado.<br><code class="bg-white px-1 py-0.5 rounded border mt-1 inline-block">20 ÷ 4 ≠ 4 ÷ 2</code></p>
+                        </div>
+
+                        <div class="p-4 rounded-lg bg-red-50 border border-red-200">
+                            <h5 class="font-bold text-red-700 mb-1">❌ No es Asociativa</h5>
+                            <p class="text-xs text-gray-600">La forma de agrupar los números altera el cociente final.<br><code class="bg-white px-1 py-0.5 rounded border mt-1 inline-block">(24 ÷ 4) ÷ 2 ≠ 24 ÷ (4 ÷ 2)</code></p>
+                        </div>
+
+                        <div class="p-4 rounded-lg bg-red-50 border border-red-200">
+                            <h5 class="font-bold text-red-700 mb-1">❌ No es Cerrada</h5>
+                            <p class="text-xs text-gray-600">El cociente de dos números naturales no siempre da como resultado otro número natural (ej. $7 ÷ 2$).</p>
+                        </div>
+
+                        <div class="p-4 rounded-lg bg-green-50 border border-green-200">
+                            <h5 class="font-bold text-green-800 mb-1">✔️ Propiedad del Cero</h5>
+                            <p class="text-xs text-gray-600">Cero dividido entre cualquier número es cero ($0 ÷ a = 0$). <strong class="text-red-600">¡Dividir entre cero NO está permitido! ($a ÷ 0$ no existe)</strong>.</p>
+                        </div>
+
+                        <div class="p-4 rounded-lg bg-blue-50 border border-blue-200">
+                            <h5 class="font-bold text-blue-800 mb-1">✔️ Elemento Neutro por la Derecha</h5>
+                            <p class="text-xs text-gray-600">Todo número dividido entre $1$ da como resultado el mismo número.<br><code class="bg-white px-1 py-0.5 rounded border mt-1 inline-block">a ÷ 1 = a</code></p>
+                        </div>
+
+                        <div class="p-4 rounded-lg bg-purple-50 border border-purple-200">
+                            <h5 class="font-bold text-purple-800 mb-1">✔️ Distributiva a Derecha</h5>
+                            <p class="text-xs text-gray-600">Es distributiva respecto a la suma y resta solo si el divisor está a la derecha.<br><code class="bg-white px-1 py-0.5 rounded border mt-1 inline-block">(a + b) ÷ c = (a ÷ c) + (b ÷ c)</code></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 2: EJEMPLOS RESUELTOS ================= -->
+            <section id="sec-ejemplos" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-montano-blue">
+                    <p class="text-sm text-gray-600">Estudia con atención los siguientes <strong>15 ejemplos resueltos paso a paso</strong>, clasificados por su nivel de dificultad.</p>
+                </div>
+
+                <!-- NIVEL BÁSICO -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-olive px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-seedling"></i> Nivel Básico (1 a 5)
+                    </h3>
+
+                    <!-- Ex 1 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 1: División Exacta Directa</div>
+                        <p class="text-sm text-gray-700 mt-1">Calcula $144 \div 12$ y verifica la propiedad conmutativa.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Resolvemos $144 \div 12 = 12$ (ya que $12 \times 12 = 144$). Residuo = 0.</p>
+                            <p><strong>Paso 2:</strong> Intentamos cambiar el orden $12 \div 144$. En los números naturales, esta operación no produce un número natural entero.</p>
+                            <p class="text-montano-sage font-semibold">Conclusión: Comprobamos que la división NO es conmutativa.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 2 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 2: Reparto en Partes Iguales</div>
+                        <p class="text-sm text-gray-700 mt-1">En el Colegio Montano se reparten 350 cuadernos entre 14 aulas en partes iguales. ¿Cuántos cuadernos recibe cada aula?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Operación:</strong> $350 \div 14$</p>
+                            <p><strong>Paso 1:</strong> Tomamos las primeras dos cifras: $35 \div 14 = 2$ (sobran 7).</p>
+                            <p><strong>Paso 2:</strong> Bajamos el 0 para formar $70$: $70 \div 14 = 5$ (sobra 0).</p>
+                            <p class="text-montano-sage font-semibold">Resultado: Cada aula recibe exactamente 25 cuadernos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 3 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 3: Propiedad del Cero</div>
+                        <p class="text-sm text-gray-700 mt-1">Resuelve $0 \div 85$ e indica su significado.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Aplicamos la regla del cero como dividendo.</p>
+                            <p><strong>Respuesta:</strong> $0 \div 85 = 0$. Significa repartir "nada" entre 85 personas, a cada una le corresponden 0 unidades.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 4 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 4: Identificación de Términos</div>
+                        <p class="text-sm text-gray-700 mt-1">Dada la división $89 \div 7$, halla el cociente y el residuo.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> $89 = 7 \times 12 + 5$.</p>
+                            <p><strong>Paso 2:</strong> El cociente ($c$) es $12$ y el residuo ($r$) es $5$.</p>
+                            <p class="text-montano-sage font-semibold">Verificación: $5 < 7$ (El residuo es menor que el divisor, correcto).</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 5 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 5: División abreviada entre potencias de 10</div>
+                        <p class="text-sm text-gray-700 mt-1">Resuelve $45,000 \div 100$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Regla práctica:</strong> Para dividir entre 10, 100 o 1,000 se eliminan tantos ceros en el dividendo como tenga el divisor.</p>
+                            <p><strong>Operación:</strong> $45,000 \div 100 \rightarrow$ eliminamos 2 ceros = $450$.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-sage px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-tree"></i> Nivel Intermedio (6 a 10)
+                    </h3>
+
+                    <!-- Ex 6 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 6: Reconstrucción del Dividendo</div>
+                        <p class="text-sm text-gray-700 mt-1">Una división tiene como divisor 24, cociente 18 y residuo 15. ¿Cuál es el dividendo?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Fórmula:</strong> $D = (d \times c) + r$</p>
+                            <p><strong>Paso 1:</strong> Multiplicamos $d \times c = 24 \times 18 = 432$.</p>
+                            <p><strong>Paso 2:</strong> Sumamos el residuo $r = 432 + 15 = 447$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: El dividendo es 447.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 7 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 7: Propiedad Distributiva por la Derecha</div>
+                        <p class="text-sm text-gray-700 mt-1">Aplica la propiedad distributiva para calcular $(360 + 180) \div 18$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> Distribuimos el divisor: $(360 \div 18) + (180 \div 18)$.</p>
+                            <p><strong>Paso 2:</strong> Calculamos cada término: $20 + 10 = 30$.</p>
+                            <p><strong>Comprobación directa:</strong> $540 \div 18 = 30$. Ambos métodos entregan el mismo resultado.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 8 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 8: Problema de Empaque y Residuo</div>
+                        <p class="text-sm text-gray-700 mt-1">Se desean empacar 1,425 manzanas en cajas con capacidad para 36 manzanas cada una. ¿Cuántas cajas completas se llenan y cuántas manzanas quedan sueltas?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Operación:</strong> $1,425 \div 36$</p>
+                            <p><strong>Paso 1:</strong> $1,425 \div 36 = 39$ con residuo de $21$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: Se llenan 39 cajas completas y quedan 21 manzanas sueltas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 9 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 9: Falsedad de la Asociatividad</div>
+                        <p class="text-sm text-gray-700 mt-1">Demuestra que $(120 \div 6) \div 2 \neq 120 \div (6 \div 2)$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Lado Izquierdo:</strong> $(120 \div 6) \div 2 = 20 \div 2 = 10$.</p>
+                            <p><strong>Lado Derecho:</strong> $120 \div (6 \div 2) = 120 \div 3 = 40$.</p>
+                            <p class="text-montano-sage font-semibold">Conclusión: $10 \neq 40$. La división NO cumple la propiedad asociativa.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 10 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 10: División de Números Grandes</div>
+                        <p class="text-sm text-gray-700 mt-1">Calcula $25,875 \div 125$.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Paso 1:</strong> $258 \div 125 = 2$ (resto $8$).</p>
+                            <p><strong>Paso 2:</strong> Bajamos el 7 para formar $87$. Como $87 < 125$, agregamos 0 al cociente y bajamos el 5 ($875$).</p>
+                            <p><strong>Paso 3:</strong> $875 \div 125 = 7$ (resto $0$).</p>
+                            <p class="text-montano-sage font-semibold">Resultado: El cociente es 207.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-blue px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-mountain"></i> Nivel Avanzado (11 a 15)
+                    </h3>
+
+                    <!-- Ex 11 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 11: Residuo Máximo Posible</div>
+                        <p class="text-sm text-gray-700 mt-1">En una división, el divisor es 45. Si el cociente es 32 y el residuo es el MÁXIMO posible, ¿cuál es el dividendo?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Análisis:</strong> El residuo máximo siempre es igual al divisor menos uno ($r_{máx} = d - 1$).</p>
+                            <p><strong>Paso 1:</strong> $r_{máx} = 45 - 1 = 44$.</p>
+                            <p><strong>Paso 2:</strong> $D = (45 \times 32) + 44 = 1,440 + 44 = 1,484$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: El dividendo es 1,484.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 12 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 12: Variación de Términos</div>
+                        <p class="text-sm text-gray-700 mt-1">Si el dividendo se multiplica por 3 y el divisor permanece constante en una división exacta, ¿qué le ocurre al cociente?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Ejemplo numérico inicial:</strong> $24 \div 6 = 4$.</p>
+                            <p><strong>Multiplicamos dividendo por 3:</strong> $(24 \times 3) \div 6 = 72 \div 6 = 12$.</p>
+                            <p><strong>Comparación de cocientes:</strong> $12 \div 4 = 3$.</p>
+                            <p class="text-montano-sage font-semibold">Propiedad: El cociente también queda multiplicado por 3 (Directamente proporcional).</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 13 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 13: Problema Combinado con Presupuesto</div>
+                        <p class="text-sm text-gray-700 mt-1">Un autobús escolar del Colegio Montano transporta a 48 estudiantes. Si se inscribieron 530 estudiantes para una excursión, ¿cuántos autobuses se deben contratar para llevar a TODOS los alumnos?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Operación:</strong> $530 \div 48 = 11$ con residuo $2$.</p>
+                            <p><strong>Análisis contextual:</strong> 11 autobuses llevarán a $11 \times 48 = 528$ alumnos, pero quedarían 2 alumnos sin viajar.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: Se deben contratar 12 autobuses (interpretación del residuo en el contexto real).</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 14 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 14: Invalidez de la Distributiva por la Izquierda</div>
+                        <p class="text-sm text-gray-700 mt-1">Comprueba si $100 \div (10 + 15) = (100 \div 10) + (100 \div 15)$ es una igualdad válida.</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Lado Izquierdo:</strong> $100 \div 25 = 4$.</p>
+                            <p><strong>Lado Derecho:</strong> $10 + 6.66... = 16.66...$</p>
+                            <p class="text-montano-sage font-semibold">Conclusión: $4 \neq 16.66...$ La división NO es distributiva cuando el paréntesis está en el divisor (por la izquierda).</p>
+                        </div>
+                    </div>
+
+                    <!-- Ex 15 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="font-bold text-montano-blue">Ejemplo 15: Sistema de Ecuaciones Aritmético</div>
+                        <p class="text-sm text-gray-700 mt-1">La suma de dos números es 180 y el cociente exacto entre ellos es 5. ¿Cuáles son los dos números?</p>
+                        <div class="mt-2 bg-slate-50 p-3 rounded text-xs md:text-sm text-gray-800 space-y-1">
+                            <p><strong>Planteamiento:</strong> Si el cociente es 5, el número mayor es 5 veces el menor ($A = 5 \times B$).</p>
+                            <p><strong>Suma:</strong> $A + B = 180 \rightarrow (5 \times B) + B = 180 \rightarrow 6 \times B = 180$.</p>
+                            <p><strong>Paso 1:</strong> $B = 180 \div 6 = 30$.</p>
+                            <p><strong>Paso 2:</strong> $A = 5 \times 30 = 150$.</p>
+                            <p class="text-montano-sage font-semibold">Respuesta: Los números son 150 y 30.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 3: EJERCICIOS PRÁCTICOS ================= -->
+            <section id="sec-ejercicios" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-montano-blue flex justify-between items-center flex-wrap gap-2">
+                    <p class="text-sm text-gray-600">Resuelve cada ejercicio en tu cuaderno y presiona <strong>"Mostrar solución"</strong> para corroborar tus procedimientos.</p>
+                    <span class="text-xs font-bold text-montano-blue bg-blue-100 px-3 py-1 rounded-full">15 Ejercicios de Práctica</span>
+                </div>
+
+                <!-- NIVEL BÁSICO -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-olive px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-seedling"></i> Ejercicios Nivel Básico
+                    </h3>
+
+                    <!-- Ej 1 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 1</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Resuelve $288 \div 24$ e indica si la división es exacta o inexacta.</p>
+                        
+                        <button onclick="toggleSolution('sol-e1')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e1">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e1" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $288 \div 24 = 12$. Residuo = 0.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: El cociente es 12 y la división es EXACTA.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 2 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 2</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Efectúa rápidamente $78,000 \div 1,000$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e2')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e2">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e2" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Cancelamos 3 ceros en el dividendo y en el divisor: $78,000 \div 1,000 = 78$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: 78.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 3 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 3</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Halla el cociente y el residuo de $527 \div 15$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e3')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e3">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e3" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $527 \div 15 = 35$ con un residuo de $2$.<br>
+                                Comprobación: $(15 \times 35) + 2 = 525 + 2 = 527$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Cociente = 35, Residuo = 2.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 4 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 4</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Un profesor tiene 192 lápices para repartir equitativamente entre 32 alumnos. ¿Cuántos lápices recibe cada uno?</p>
+                        
+                        <button onclick="toggleSolution('sol-e4')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e4">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e4" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $192 \div 32 = 6$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Cada alumno recibe 6 lápices.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 5 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 5</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Básico</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Justifica el resultado de la operación $435 \div 1$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e5')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e5">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e5" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Por la propiedad del elemento neutro por la derecha en la división, todo número dividido entre 1 da el mismo número.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: 435.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-sage px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-tree"></i> Ejercicios Nivel Intermedio
+                    </h3>
+
+                    <!-- Ej 6 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 6</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Determina el dividendo de una división cuyo divisor es 38, el cociente es 25 y el residuo es 12.</p>
+                        
+                        <button onclick="toggleSolution('sol-e6')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e6">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e6" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $D = (d \times c) + r$<br>
+                                $D = (38 \times 25) + 12 = 950 + 12 = 962$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: El dividendo es 962.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 7 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 7</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Aplica la propiedad distributiva para resolver la expresión: $(450 - 120) \div 15$.</p>
+                        
+                        <button onclick="toggleSolution('sol-e7')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e7">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e7" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $(450 \div 15) - (120 \div 15) = 30 - 8 = 22$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: 22.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 8 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 8</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Una fábrica produce 8,640 galletas al día y las empaqueta en bolsas de 24 unidades. ¿Cuántas bolsas completas se producen al día?</p>
+                        
+                        <button onclick="toggleSolution('sol-e8')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e8">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e8" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $8,640 \div 24 = 360$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Se producen 360 bolsas de galletas diariamente.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 9 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 9</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Se compra un electrodoméstico que cuesta Q3,420 para pagarse en 12 cuotas mensuales iguales. ¿De cuánto es cada cuota?</p>
+                        
+                        <button onclick="toggleSolution('sol-e9')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e9">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e9" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $3,420 \div 12 = 285$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Cada cuota mensual es de Q285.00.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 10 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 10</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Intermedio</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">En una división el divisor es 17. ¿Cuál es el residuo MÁXIMO que podría obtenerse?</p>
+                        
+                        <button onclick="toggleSolution('sol-e10')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e10">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e10" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                El residuo siempre debe ser menor que el divisor ($r < d$). El residuo máximo es $d - 1$.<br>
+                                $17 - 1 = 16$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: El residuo máximo es 16.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="text-lg font-bold text-white bg-montano-blue px-4 py-1.5 rounded-lg inline-block shadow">
+                        <i class="fa-solid fa-mountain"></i> Ejercicios Nivel Avanzado
+                    </h3>
+
+                    <!-- Ej 11 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 11</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Si dividimos un número $N$ entre 28, obtenemos un cociente de 42 y un residuo máximo. ¿Cuál es el valor de $N$?</p>
+                        
+                        <button onclick="toggleSolution('sol-e11')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e11">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e11" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Divisor ($d$) = 28, Cociente ($c$) = 42.<br>
+                                Residuo máximo ($r$) = $28 - 1 = 27$.<br>
+                                $N = (28 \times 42) + 27 = 1,176 + 27 = 1,203$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: N = 1,203.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 12 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 12</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Un terreno de $1,850\text{ m}^2$ se divide entre parcelas de $150\text{ m}^2$. ¿Cuántas parcelas completas se obtienen y cuánto terreno sobra?</p>
+                        
+                        <button onclick="toggleSolution('sol-e12')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e12">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e12" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $1,850 \div 150 = 12$ con residuo $50$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Se obtienen 12 parcelas completas y sobran $50\text{ m}^2$.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 13 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 13</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">En una división exacta, si el dividendo se triplica y el divisor se duplica, ¿por cuánto queda multiplicado el nuevo cociente respecto al original?</p>
+                        
+                        <button onclick="toggleSolution('sol-e13')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e13">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e13" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Sea la división original $\frac{D}{d} = c$.<br>
+                                Nueva división: $\frac{3D}{2d} = \frac{3}{2} \times \frac{D}{d} = 1.5 \times c$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: El nuevo cociente queda multiplicado por $1.5$ (o $3/2$ del original).</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 14 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 14</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">La suma de dos números es 240. Al dividir el mayor entre el menor, el cociente es 7 y la división es exacta. Encuentra ambos números.</p>
+                        
+                        <button onclick="toggleSolution('sol-e14')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e14">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e14" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                $A = 7 \times B$.<br>
+                                $A + B = 240 \rightarrow 7B + B = 240 \rightarrow 8B = 240$.<br>
+                                $B = 240 \div 8 = 30$.<br>
+                                $A = 7 \times 30 = 210$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Los números son 210 y 30.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ej 15 -->
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="font-bold text-montano-blue">Ejercicio 15</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Avanzado</span>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-2">Se quiere repartir un fondo de Q12,750 entre 25 becados. Si 3 de ellos renuncian a su beca, ¿cuánto dinero adicional recibirá cada uno de los becados restantes?</p>
+                        
+                        <button onclick="toggleSolution('sol-e15')" class="mt-3 text-xs bg-montano-blue text-white font-semibold px-3 py-1.5 rounded hover:bg-blue-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i> <span id="lbl-sol-e15">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-e15" class="solution-container">
+                            <div class="bg-montano-lightblue/20 p-3 rounded-lg border border-montano-lightblue text-xs md:text-sm text-gray-800">
+                                <strong>Solución:</strong><br>
+                                Monto inicial por becado: $12,750 \div 25 = 510$.<br>
+                                Nuevos becados: $25 - 3 = 22$.<br>
+                                Nuevo monto por becado: $12,750 \div 22 = 579.54$ (aprox).<br>
+                                Diferencia adicional: $579.54 - 510 = 69.54$.<br>
+                                <span class="text-montano-blue font-bold">Respuesta: Cada becado restante recibe Q69.54 adicionales.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 4: REFLEXIÓN CRÍTICA ================= -->
+            <section id="sec-reflexion" class="tab-content hidden space-y-6">
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-blue shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-brain text-montano-yellow"></i> Pensamiento Lógico y Metacognición
+                    </h3>
+                    <p class="text-gray-700 text-sm">
+                        Analiza las siguientes cuestiones de razonamiento matemático. Discutir estas preguntas te ayudará a comprender profundamente la naturaleza de la división.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Q1 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">1</span>
+                                ¿Por qué está prohibida la división entre Cero?
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Si intentáramos calcular $7 \div 0 = x$, por la definición de división tendría que cumplirse que $x \times 0 = 7$. ¿Existe algún número que multiplicado por cero dé 7? ¿Qué ocurre con $0 \div 0$?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-yellow-50 rounded-lg text-xs text-amber-900 border border-yellow-200">
+                            <strong>Pista de análisis:</strong> Todo número multiplicado por cero es cero. Por ello, la división entre cero es una operación **indefinida** en los números reales.
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</span>
+                                El Residuo en la Vida Real
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                En un problema matemático donde debes transportar a 45 personas en taxis de 4 asientos ($45 \div 4 = 11$ residuo $1$), el resultado matemático da 11. ¿Por qué en la vida real la respuesta correcta es 12 taxis?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-xs text-blue-900 border border-blue-200">
+                            <strong>Pista de análisis:</strong> El contexto determina la interpretación del residuo. No podemos dejar a una persona sin transporte.
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</span>
+                                Comparación con la Multiplicación
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                La multiplicación de números naturales siempre da como resultado un número mayor o igual a los factores ($a \times b \ge a$). ¿Ocurre siempre lo mismo con la división? Explica con ejemplos.
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-emerald-50 rounded-lg text-xs text-emerald-900 border border-emerald-200">
+                            <strong>Pista de análisis:</strong> La división en números naturales suele "reducir" la cantidad original, excepto cuando el divisor es 1.
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-5 rounded-xl border border-montano-lightblue shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-montano-sage font-bold text-base mb-2">
+                                <span class="bg-montano-sage text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">4</span>
+                                Importancia de las Propiedades
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                ¿Por qué es fundamental recordar que la división no es conmutativa ni asociativa al programar una calculadora o resolver problemas financieros?
+                            </p>
+                        </div>
+                        <div class="mt-4 p-3 bg-purple-50 rounded-lg text-xs text-purple-900 border border-purple-200">
+                            <strong>Pista de análisis:</strong> Cambiar el orden de los datos o los paréntesis altera completamente los resultados contables.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB 5: EVALUACIÓN FORMATIVA ================= -->
+            <section id="sec-evaluacion" class="tab-content hidden space-y-6">
+                <div class="bg-white p-5 rounded-xl border-l-8 border-montano-yellow shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-montano-yellow"></i> Evaluación Formativa de Comprobación
+                    </h3>
+                    <p class="text-gray-700 text-sm">
+                        Ponte a prueba con este cuestionario integral. Cada ejercicio contiene su solución desplegable para autoevaluación.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Pregunta 1 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 1 - Concepto</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">¿Cuáles de las siguientes afirmaciones sobre la división en números naturales son CORRECTAS?</h4>
+                        <ol class="list-alpha list-inside text-sm text-gray-700 mt-2 space-y-1">
+                            <li>I. La división es conmutativa.</li>
+                            <li>II. El residuo siempre debe ser estrictamente menor que el divisor.</li>
+                            <li>III. $0 \div 15 = 0$.</li>
+                            <li>IV. La división es distributiva por la izquierda respecto a la suma.</li>
+                        </ol>
+
+                        <button onclick="toggleSolution('sol-ev1')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev1">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev1" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta Correcta: Afirmaciones II y III.</strong><br>
+                                <em>Explicación:</em> La afirmación I es falsa (no es conmutativa). La IV es falsa (solo es distributiva si el paréntesis está a la izquierda del signo de división, es decir, distributiva a derecha).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 2 - Aplicación en Contexto</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">
+                            En la biblioteca del Colegio Montano hay 3,840 libros que deben organizarse en estantes. Si en cada estante caben exactamente 45 libros:
+                        </h4>
+                        <p class="text-sm text-gray-600 mt-1">a) ¿Cuántos estantes se llenarán por completo?<br>b) ¿Cuántos libros quedarán en el último estante incompleto?</p>
+
+                        <button onclick="toggleSolution('sol-ev2')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev2">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev2" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta:</strong><br>
+                                Calculamos $3,840 \div 45 = 85$ con residuo $15$.<br>
+                                <strong>a)</strong> Se llenan completamente <strong>85 estantes</strong>.<br>
+                                <strong>b)</strong> En el último estante quedan <strong>15 libros</strong>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 3 - Reconstrucción de la Operación</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">
+                            Al dividir un número entre 54, el cociente obtenido fue 27 y el residuo fue 38. ¿Cuál era el número original?
+                        </h4>
+
+                        <button onclick="toggleSolution('sol-ev3')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev3">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev3" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta: 1,496.</strong><br>
+                                <em>Procedimiento:</em><br>
+                                $D = (d \times c) + r$<br>
+                                $D = (54 \times 27) + 38$<br>
+                                $D = 1,458 + 38 = 1,496$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 4 -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="text-xs font-bold text-montano-sage uppercase tracking-wider">Pregunta 4 - Demostración de Propiedades</span>
+                        <h4 class="font-bold text-gray-800 text-base mt-1">
+                            ¿Es correcta la expresión $(100 + 50) \div 25 = (100 \div 25) + (50 \div 25)$? Demuestra numéricamente.
+                        </h4>
+
+                        <button onclick="toggleSolution('sol-ev4')" class="mt-4 text-xs bg-montano-blue text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition flex items-center gap-2">
+                            <i class="fa-solid fa-square-poll-vertical"></i> <span id="lbl-sol-ev4">Mostrar solución</span>
+                        </button>
+
+                        <div id="sol-ev4" class="solution-container">
+                            <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-xs md:text-sm text-gray-800">
+                                <strong class="text-emerald-800">Respuesta: SÍ es correcta.</strong><br>
+                                <em>Demostración:</em><br>
+                                Lado izquierdo: $(100 + 50) \div 25 = 150 \div 25 = 6$.<br>
+                                Lado derecho: $(100 \div 25) + (50 \div 25) = 4 + 2 = 6$.<br>
+                                Se comprueba la <strong>Propiedad Distributiva de la división respecto a la suma por la derecha</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-montano-blue text-white p-3 text-center text-xs border-t-2 border-montano-yellow flex flex-wrap justify-between items-center px-6 gap-2">
+            <div>
+                <strong>Colegio Montano</strong> &copy; 2026 - Material Educativo Interactivo
+            </div>
+            <div class="text-montano-lightblue">
+                Diseñado para Canvas Education
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        /* Function to switch active tabs */
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            // Deactivate all tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show current tab content and set button as active
+            const targetContent = document.getElementById('sec-' + tabId);
+            const targetBtn = document.getElementById('tab-' + tabId);
+
+            if (targetContent && targetBtn) {
+                targetContent.classList.remove('hidden');
+                targetBtn.classList.add('active');
+            }
+        }
+
+        /* Function to toggle visibility of exercise solutions */
+        function toggleSolution(solId) {
+            const container = document.getElementById(solId);
+            const label = document.getElementById('lbl-' + solId);
+
+            if (container) {
+                container.classList.toggle('open');
+                if (label) {
+                    if (container.classList.contains('open')) {
+                        label.textContent = 'Ocultar solución';
+                    } else {
+                        label.textContent = 'Mostrar solución';
+                    }
+                }
+                // Trigger MathJax re-render if needed when hidden elements open
+                if (window.MathJax && container.classList.contains('open')) {
+                    window.MathJax.typesetPromise([container]).catch(function (err) {
+                        console.log('MathJax typeset error: ' + err.message);
+                    });
+                }
+            }
+        }
+
+        /* Fullscreen API Toggle Function */
+        function toggleFullscreen() {
+            const elem = document.getElementById('whiteboard');
+
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE11 */
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
